@@ -1,30 +1,36 @@
 const HTMLParser = require('node-html-parser');
 
+// Gets the url and its HTML content
+// Extracts the relevant tags from the input
 const parse = (baseUrl, htmlContent) => {
     const root = HTMLParser.parse(htmlContent);
     const title = (root.querySelector('title'))?root.querySelector('title').text:null;
-    const links = root.querySelectorAll('a');
-    const finalLinks = [];
-    for(let ch of links){
-        // const startLink = ch.rawAttrs.indexOf("href=");
-        // const l = ch.rawAttrs.slice(startLink+6, ch.rawAttrs.length-1);
-        const l = encodeURI(ch.getAttribute("href"));
-        const finalLink = l.startsWith('http') ? l : `${baseUrl}${l}`;
-        if(validURL(finalLink)){
-            if(finalLinks.indexOf(finalLink) == -1) finalLinks.push(finalLink);
+    // Extracts all the links elements
+    const links_elements = root.querySelectorAll('a');
+    
+    // Extracts all the url links from the elements
+    const Contained_links = [];
+    for(let link_element of links_elements){
+        const url_link = encodeURI(link_element.getAttribute("href"));
+        // If it is a relative url we will convert it to full
+        const fullLink = url_link.startsWith('http') ? url_link : `${baseUrl}${url_link}`;
+        // If the url is incorrect we will not save it as a contained link
+        if(validURL(fullLink)){
+            // Checks we do not insert the same link twice
+            if(Contained_links.indexOf(fullLink) == -1) Contained_links.push(fullLink);
         } else {
-            console.warn(`not valid link ${finalLink}`);
+            console.warn(`not valid link ${fullLink}`);
         }
     }
+    // return an object that contains the title and links we extracted
     return {
         title,
-        finalLinks
+        Contained_links
     }
-    console.log(title);
 }
 
 
-
+// Checks if URL is valid
 function validURL(str) {
     var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
     return regexp.test(str);
