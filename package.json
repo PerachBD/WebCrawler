@@ -16,7 +16,8 @@
   "homepage": "https://bitbucket.org/Perach_Ben_David/activefence_challenge#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "node-html-parser": "^1.2.20"
+    "node-html-parser": "^1.2.20",
+    "react-redux": "^7.2.1"
   },
   "devDependencies": {
     "mocha": "^8.1.1",
