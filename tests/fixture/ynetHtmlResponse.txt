@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang='he'>
+<head>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script><title itemprop=''>ynet - חדשות, כלכלה, ספורט ובריאות - דיווחים שוטפים מהארץ ומהעולם</title><meta name="viewport" content="width=1192"><meta name="application-name" content="ynet"/><meta name='description' content="אתר החדשות המוביל בישראל מבית ידיעות אחרונות. סיקור מלא של חדשות מישראל והעולם, ספורט, כלכלה, תרבות, אוכל, מדע וטבע, כל מה שקורה וכל מה שמעניין ב ynet" /><meta property="publishedPageId" content="47695"><link href="/Common/frontend/site/prod/ynet.7c23e117ad06fe3e621f124cbb3d9c06.css" rel="stylesheet"/><link rel="shortcut icon" type="image/x-icon" href="/images/favicon/favicon_1.ico"/>
+            <script>
+                function YitPaywallCallback() {
+                    YitPaywall.platform = 'WCM';
+                    YitPaywall.freePath = "/home/0,7340,L-8,00.html";
+                    YitPaywall.premiumPath = "";
+                    localStorage.setItem('wcmFreePath',YitPaywall.freePath);
+                }
+            </script>
+        <script type="text/javascript" src="/Common/Api/Scripts/paywall.js" charset="UTF-8"></script>
+                <script>
+                dataLayer = [{  'hostname': 'ynet.co.il', 'pageName': '/home/0,7340,L-8,00.html?prof=8.Central-1.Home', 'contentPageType': 'Home Page', 'dcPath': '8.Central-1.Home', 
+                                        'userId': window.YitPaywall && YitPaywall.user && YitPaywall.user.props ? YitPaywall.user.props.userId : ""
+                                          }];
+                </script>
+                <script>(function (w, d, s, l, i) {w[l] = w[l] || [];w[l].push({'gtm.start':
+                new Date().getTime(), event: 'gtm.js'});var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;f.parentNode.insertBefore(j, f);
+                })(window, document, 'script', 'dataLayer', 'GTM-T6Q59G');</script>
+                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-K69K2VK');</script> 
+            
+            <script>
+                function _isMobile() {
+                    var isMobile = (/iphone|ipod|android|blackberry|fennec/).test
+                    (navigator.userAgent.toLowerCase());
+                    return isMobile;
+                }
+
+                var isMobile1 = _isMobile();
+            </script>
+        
+                <meta property="og:title" content="ynet - חדשות, כלכלה, ספורט ובריאות - דיווחים שוטפים מהארץ ומהעולם"/>
+                <meta property="og:description" content="אתר החדשות המוביל בישראל מבית ידיעות אחרונות. סיקור מלא של חדשות מישראל והעולם, ספורט, כלכלה, תרבות, אוכל, מדע וטבע, כל מה שקורה וכל מה שמעניין ב ynet"/>
+                <meta property="og:site_name" content="ynet"/>
+                <meta property="og:image" content="https://www.ynet.co.il/images/og/logo/www.ynet.co.il.png"/>
+            <link rel='canonical' href='https://www.ynet.co.il/home/0,7340,L-8,00.html'><link rel='alternate' media='only screen and (max-width: 640px)' href='https://m.ynet.co.il/Category/8'><link rel='alternate' href='android-app://com.goldtouch.ynet/http/www.ynet.co.il/home/0,7340,L-8,00.html'><meta name="google-site-verification" content="aVs1GVkIfLRmJiL3DUr64sdtVovFkK_AhftCG-Blq10" /><script> window.defaultNativeVideoType = "yitvideo"</script>
+                <style>
+                    body {
+                        overflow: scroll;
+                    }
+                    .remove_sticky {
+                        display: none !important;
+                        visibility: hidden !important;
+                    }
+                    .old_browser_strip_main_div {
+                        display:none;
+                        width:980px;
+                        height:150px;
+                        border-top: solid 1px #888888;
+                        border-bottom: solid 1px #888888;
+                        margin-bottom:30px;
+                    }
+                    .old_browser_strip_left_div {width:500px;float:left;text-align:left;}
+                    .old_browser_strip_right_div {width:480px;float:left;text-align:right;}
+                    .old_browser_strip_title {font:bold 21px Arimo;color: #353535;padding-top:22px;}
+                    .old_browser_strip_text {font: bold 20px Arimo;color: #888888;padding-top:2px;}
+                    .old_browser_strip_main_div_xnet {
+                        display:none;
+                        width:980px;
+                        height:…>
+          
+            <link rel='stylesheet' type='text/css' href='/Common/Api/Scripts/gdpr/cookieconsento.min.css?v=1' />
+            <script src='/Common/Api/Scripts/gdpr/cookieconsent.min.js' async></script>
+            <script>  
+            if (isAbroad || 0 == 1) {                 
+                window.addEventListener('load', function () {
+                    window.cookieconsent.initialise({
+                        'palette': {
+                            'popup': {
+                                'background': '#e9e9e9',
+                                'font-family': 'Open Sans',
+                                'font-size': '12px',
+                                'font-weight': 'normal'
+                            },
+
+                            'button': {
+                                'background': '#cc0000',
+                                'float': 'left',
+
+                            }
+                        },
+                        'position': 'top',
+                        'static': true,
+                        'content': {
+                            "dismiss": "סגור",
+                            "link": "למד עוד",
+                            "message": "שים לב, אתר זה עושה שימוש בעוגיות על מנת להבטיח לך את חווית הגלישה הטובה ביותר",
+                            "href": "https://www.ynet.co.il/home/0,7340,L-825,00.html"
+                        },
+                        onPopupOpen: function () {
+                           if (window.dcPath.indexOf("3456.Magazine") > -1 && isMobile1) {
+                            document.querySelector('.cc-grower').style.top = 0;
+                            document.querySelector('.cc-grower').style.marginBottom = 0;
+                           }
+                            var i;
+                            for (i = 0; i < adverIds.length; i++) {
+                                if (document.getElementById(adverIds[i]) != null)
+                                    document.getElementById(adverIds[i]).style.top =
+                                        parseInt(document.querySelector(
+                                            '.cc-grower').style.maxHeight) + 6 + 'px';
+                            }
+
+                        },
+                        onPopupClose: function () {
+                            var i;
+                            for (i = 0; i < adverIds.length; i++) {
+                                if (document.getElementById(adverIds[i]) != null)
+                                    document.getElementById(adverIds[i]).style.top = '0px';
+                            }
+                        }
+                    })
+                });
+            }
+            </script>
+            <script src='' async id='8'></script>
+        <script src="https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js" id="browsi-tag" data-pubKey="ynet" data-siteKey="ynethomepage" async></script>
+            <script>
+                try{
+                    if(YitPaywall.user){
+                        _taboola.push({unified_id: YitPaywall.user.props.userId, user_type:'Subscriber'});
+                    } 
+                    else {
+                        _taboola.push({user_type:'Other'});
+                    }
+                }catch(e){ }
+            </script>
+        
+                <script>
+                    window.YitVideo.Constructor({
+                    containerAttrPrefix: 'data-yitvideo',
+                    dynamicPlayerType: false,
+                    floatOnScroll: true,
+                    nextVideo: false,
+                    popularity: true,
+                    siteName: 'ynet',
+                    dcPath: '8.Central-1.Home',
+                    autoplay: false,
+                    autoEvents:true,
+                    callback: function() {
+                        document.querySelectorAll('.yitvideo_container').forEach(function(container) {
+                              container.style.height = 'unset';
+                              container.style.paddingTop = 'unset';
+                        });
+                    },
+                    eventsCallback: function(event, data) {
+                        //send gtm events here
+                        switch (event) {
+                            case 'ready':
+                                break;
+                            case 'firstplay':
+                                break;
+                            case 'play':
+                                break;
+                            case 'pause':
+                                break;
+                            case 'progress':
+                                break;
+                            case 'contentplay':
+                                break;
+                            case 'ended':
+                                break;
+                            case 'ads-ad-started':
+                                break;
+                        }
+                    }
+                });
+                </script>
+            
+</body>
+</html>
