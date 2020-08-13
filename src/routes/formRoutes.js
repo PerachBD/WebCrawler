@@ -1,3 +1,3 @@
 module.exports = app =>{
-    app.get('/api/crawlerArgsForm')
+    app.get('/api/sbmitCrawlerForm')
 }

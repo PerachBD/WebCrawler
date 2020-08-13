@@ -1,5 +1,10 @@
 const axios = require('axios');
 const {parse} = require('./htmlParser');
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const bodyParser = require('body-parser');
+const port = 8080;
 
 
 
@@ -32,7 +37,7 @@ function get_base_url(link){
 }
 
 
-const handlequery = async(link,maxDepth,maxTotalPages) => {
+const handlequery = async (link,maxDepth,maxTotalPages) =>{
     let depth=0;
     let jobs = [[link]];
     let query_result =[]
@@ -47,20 +52,42 @@ const handlequery = async(link,maxDepth,maxTotalPages) => {
         for(let link of jobs[0]){
             // Checking that we did not reach the maximum pages
             if(maxTotalPages>0){
+                // Link processing
                 const link_job = await createJob(link)
                 link_job.depth=depth
+                // Add the result to the result of the query
                 query_result.push(link_job)
-                const links= link_job.Contained_links
-                jobs[jobs.length-1].push(...links);
                 maxTotalPages--
+                // Adding the links contained in the current link to the array of jobs at the appropriate depth
+                const links= link_job.Contained_links
+                // Avoid adding identical links to the same depth
+                for(let link of links){
+                    if(!jobs[jobs.length-1].includes(link))jobs[jobs.length-1].push(link)
+                }
             }
         }
+        // We have completed the jobs of the links at the smallest depth and therefore the deletion of the array representing the smallest depth
         jobs.splice(0,1);
     }
     return query_result;
 }
 
 const main =  async () => {
+
+    app.use(cors());
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.post('/api/sbmitCrawlerForm',(req, res) => {
+        console.log(req.body.URL, req.body.maxDepth, req.body.maxPages);
+        const query_result = handlequery(req.body.URL, req.body.maxDepth, req.body.maxPages)
+        res.send(
+          `I received your POST request. This is what you sent me: ${req}`,
+        );
+    });
+    
+    app.listen(port, () => {
+        console.log(`Example app listening at http://localhost:${port}`)
+    })
 
     // get query from frontend
     const link = 'https://www.npmjs.com/package/node-html-parser';
@@ -69,7 +96,7 @@ const main =  async () => {
 
 
     //execute the query
-    const query_result = await handlequery(link,maxDepth,maxTotalPages)
+    // const query_result = await handlequery(link,maxDepth,maxTotalPages)
     console.log("jjj")
 }
 
