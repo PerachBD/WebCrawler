@@ -4,7 +4,6 @@ import store from "./store";
 import sbmitCrawlerForm from "./sbmitCrawlerForm";
 import SimpleForm from "./formComponent";
 
-const rootEl = document.getElementById("root");
 
 function App() {
   return (

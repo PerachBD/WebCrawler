@@ -1,8 +1,8 @@
 import React from 'react';
-import { Field, reduxForm, isInvalid } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 
 const CrawlerForm = props => {
-  const { handleSubmit, pristine, reset, submitting } = props;
+  const { handleSubmit, pristine } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div>
