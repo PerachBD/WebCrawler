@@ -20,7 +20,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "node-html-parser": "^1.2.20",
-    "react-redux": "^7.2.1"
+    "react-redux": "^7.2.1",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "mocha": "^8.1.1",
