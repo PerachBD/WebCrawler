@@ -1,6 +1,7 @@
 const express = require('express')
 const http = require("http");
 const socketIo = require("socket.io");
+const {handlequery} = require("./handlequery");
 
 const cors = require('cors')
 const bodyParser = require('body-parser');
@@ -20,7 +21,7 @@ const main = async () => {
     const server = http.createServer(app);
 
     const io = socketIo(server);
-
+    let query_result;
     let interval;
 
     io.on("connection", (socket) => {
@@ -28,9 +29,18 @@ const main = async () => {
         if (interval) {
             clearInterval(interval);
         }
-        interval = setInterval(() => getApiAndEmit(socket), 1000);
-        socket.on("sbmitCrawlerParameters", (event) => {
-        console.log("url: "+event.url+" maxDepth: "+event.maxDepth+" maxPages: "+event.maxPages);
+        // for(let i=0; i < 5;i++){
+            // socket.emit("FromAPI", 'bla'+i);
+        // }
+        // interval = setInterval(() => getApiAndEmit(socket), 10000);
+        socket.on("sbmitCrawlerParameters", async (event) => {
+            console.log('Get event from client');
+            console.log('event', event);
+            socket.emit("FromAPI", 'sent from server');
+            // console.log("url: "+event.url+" maxDepth: "+event.maxDepth+" maxPages: "+event.maxPages);
+            query_result = await handlequery(event.url, event.maxDepth, event.maxPages,socket);
+            console.log(query_result);
+            socket.emit("FromAPI", query_result);
         });
         socket.on("disconnect", () => {
             console.log("Client disconnected");
@@ -43,7 +53,7 @@ const main = async () => {
         const response = new Date();
         // Emitting a new message. Will be consumed by the client
         socket.emit("FromAPI", response);
-      };
+    };
       
     server.listen(port, () => console.log(`Listening on port ${port}`));
 }

@@ -16,6 +16,7 @@ router.post('/api/sbmitCrawlerForm',(req, res) => {
 });
 
 router.get('/queryResult', (req, res) => {
+  console.log('queryResult');
   res.send({ express: 'Hello From Express' });
 });
 
