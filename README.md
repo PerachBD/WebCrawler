@@ -24,7 +24,8 @@
 
 ## Quick Start: ##
 
-1. run comman "npm install" in activefence_challenge folder and in \activefence_challenge\src\client.
+1. run "git clone https://Perach_Ben_David@bitbucket.org/Perach_Ben_David/activefence_challenge.git".
+2. run comman "npm install" in activefence_challenge folder and in \activefence_challenge\src\client.
 2. run comman "npm start" in activefence_challenge folder and in \activefence_challenge\src\client.
 
 ## Tecnolegis: ##
@@ -41,6 +42,7 @@
 ## For future expansion: ##
 1. Save running time for overlapping scrape jobs.
 2. Calculating the number of "workers", dynamically depending on the loads and the number of scrape jobs to be performed.
+3. Add option to delete, pause and continue scrape job
 
 
 
