@@ -1,61 +1,75 @@
-const express = require('express')
 const http = require("http");
-const socketIo = require("socket.io");
-const {handlequery} = require("./handlequery");
-
-const cors = require('cors')
+const express = require('express');
 const bodyParser = require('body-parser');
+const socketIo = require("socket.io");
+const cors = require('cors');
 
-const port = 8080;
+const {handlequery} = require("./handlequery");
+const {WorkersManager} = require('./WorkersManager');
 const index = require("./routes/crawlerRoutes")//handle the query that comes from the client
 
-const main = async () => {
-    
-    const app = express()
-    app.use(index);
-    
-    app.use(cors());
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
 
-    const server = http.createServer(app);
+const port = 8080;
 
-    const io = socketIo(server);
-    let query_result;
-    let interval;
 
-    io.on("connection", (socket) => {
-        console.log("New client connected");
-        if (interval) {
-            clearInterval(interval);
+const app = express()
+app.use(index);
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const server = http.createServer(app);
+const io = socketIo(server);
+const workersManager = new WorkersManager(2);
+let query_result;
+let interval;
+
+io.on("connection", (socket) => {
+    console.log("New client connected");
+    if (interval) {
+        clearInterval(interval);
+    }
+    // for(let i=0; i < 5;i++){
+        // socket.emit("FromAPI", 'bla'+i);
+    // }
+    // interval = setInterval(() => getApiAndEmit(socket), 10000);
+    // socket.br
+    socket.on("FromClient", async (event) => {
+        if(!event.command){
+            throw new Error('not command in the request')
         }
-        // for(let i=0; i < 5;i++){
-            // socket.emit("FromAPI", 'bla'+i);
-        // }
-        // interval = setInterval(() => getApiAndEmit(socket), 10000);
-        socket.on("sbmitCrawlerParameters", async (event) => {
-            console.log('Get event from client');
-            console.log('event', event);
-            socket.emit("FromAPI", 'sent from server');
-            // console.log("url: "+event.url+" maxDepth: "+event.maxDepth+" maxPages: "+event.maxPages);
-            query_result = await handlequery(event.url, event.maxDepth, event.maxPages,socket);
-            console.log(query_result);
-            socket.emit("FromAPI", query_result);
-        });
-        socket.on("disconnect", () => {
-            console.log("Client disconnected");
-            clearInterval(interval);
-        });
+        console.log('Server got command: ', event.command);
+        switch (event.command) {
+            case 'NewScanJob':
+                workersManager.addJob(event.args, socket);
+                break;
+
+            case 'getJobs':
+                console.log(event.args);
+                const jobs = workersManager.getJobs(event.args,socket);
+                for(let job of jobs){
+                    const event = {
+                        command: "JobUpdate",
+                        args: job
+                    }
+                    socket.emit("FromAPI", event);
+                }
+                break;
+        
+            default:
+                break;
+        }
+        // console.log('Get event from client');
+        console.log('event', event);
+        // socket.emit("FromAPI", 'sent from server');
+        // socket.emit("FromAPI", query_result);
     });
-    // (req.body.URL, req.body.maxDepth, req.body.maxPages)
-
-    const getApiAndEmit = socket => {
-        const response = new Date();
-        // Emitting a new message. Will be consumed by the client
-        socket.emit("FromAPI", response);
-    };
-      
-    server.listen(port, () => console.log(`Listening on port ${port}`));
-}
-
-main();
+    socket.on("disconnect", () => {
+        console.log("Client disconnected");
+        clearInterval(interval);
+    });
+});
+// (req.body.URL, req.body.maxDepth, req.body.maxPages)
+    
+server.listen(port, () => console.log(`Listening on port ${port}`));

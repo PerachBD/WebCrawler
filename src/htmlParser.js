@@ -2,9 +2,8 @@ const HTMLParser = require('node-html-parser');
 
 // Gets the url and its HTML content
 // Extracts the relevant tags from the input
-const parse = (baseUrl, htmlContent) => {
+const getContainedLinks = (baseUrl, htmlContent) => {
     const root = HTMLParser.parse(htmlContent);
-    const title = (root.querySelector('title'))?root.querySelector('title').text:null;
     // Extracts all the links elements
     const links_elements = root.querySelectorAll('a');
     
@@ -17,16 +16,18 @@ const parse = (baseUrl, htmlContent) => {
         // If the url is incorrect we will not save it as a contained link
         if(validURL(fullLink)){
             // Checks we do not insert the same link twice
-            if(Contained_links.indexOf(fullLink) == -1) Contained_links.push(fullLink);
+            if(!Contained_links.includes(fullLink)) Contained_links.push(fullLink);
         } else {
             console.warn(`not valid link ${fullLink}`);
         }
     }
     // return an object that contains the title and links we extracted
-    return {
-        title,
-        Contained_links
-    }
+    return Contained_links
+}
+const getTitle = (htmlContent) => {
+    const root = HTMLParser.parse(htmlContent);
+    const title = (root.querySelector('title'))?root.querySelector('title').text:null;
+    return title
 }
 
 
@@ -36,4 +37,5 @@ function validURL(str) {
     return regexp.test(str);
 }
 
-exports.parse = parse;
+exports.getContainedLinks = getContainedLinks;
+exports.getTitle = getTitle;

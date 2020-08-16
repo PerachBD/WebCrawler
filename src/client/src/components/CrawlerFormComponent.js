@@ -1,5 +1,7 @@
-import { FormGroup, FormControl, Form, Button } from 'react-bootstrap'
+import { FormGroup, FormControl, Form } from 'react-bootstrap'
 import React from "react";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 // import io from "socket.io-client";
 // const ENDPOINT = "http://localhost:8080/";
 
@@ -12,22 +14,24 @@ class CrawlerFormComponent extends React.Component {
       name: null,
       url:null,
       maxDepth:null,
-      maxPages:null
+      maxPages:null,
     }
     this.setURL = this.setURL.bind(this)
     this.setmaxDepth = this.setmaxDepth.bind(this)
     this.setmaxPages = this.setmaxPages.bind(this)
     // this.socket = io(ENDPOINT)
     this.handleSubmit = this.handleSubmit.bind(this)
+
   }
   render() {
-
+    const windowStyle = {minWidth:"350px"};
+    const fildStyle = {minWidth:"200px"};
     return (
-        <Form inline onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <div>
-              <h4>URL :</h4>{' '}
-              <FormControl
+        <Form inline style={windowStyle} onSubmit={this.handleSubmit}>
+          <FormGroup align="center" style={fildStyle}>
+            <div >
+              <h1 style={{color: "navy"}}>Create New Job:</h1>
+              <TextField 
                 id="url"
                 type="text"
                 label="url"
@@ -38,8 +42,7 @@ class CrawlerFormComponent extends React.Component {
             </div>
 
             <div>
-              <h4>Max Depth</h4>{' '}
-              <FormControl
+              <TextField
                 id="maxDepth"
                 type="number"
                 label="maxDepth"
@@ -50,8 +53,7 @@ class CrawlerFormComponent extends React.Component {
             </div>
 
             <div>
-              <h4>Max Pages</h4>{' '}
-              <FormControl
+              <TextField
                 id="maxPages"
                 type="number"
                 label="maxPages"
@@ -60,9 +62,9 @@ class CrawlerFormComponent extends React.Component {
                 autoComplete="off"
               />
             </div>
-
+            <p><Button style={{marginLeft: "0%"}} variant="outlined" color="primary" type="submit">Scan</Button></p>
           </FormGroup>
-          <p><Button type="submit">Scan</Button></p>
+          
         </Form>
     )
   }
@@ -89,9 +91,12 @@ class CrawlerFormComponent extends React.Component {
     event.preventDefault()
     console.log(this.state)
     this.props.onRequest({
-        url:this.state.url,
-        maxDepth:this.state.maxDepth,
-        maxPages:this.state.maxPages
+        command: "NewScanJob",
+        args : {
+          startUrl: this.state.url,
+          maxDepth: this.state.maxDepth,
+          maxTotalPages: this.state.maxPages
+        }
     })
     // this.socket.emit("sbmitCrawlerParameters", {
     //   url:this.state.url,

@@ -1,12 +1,14 @@
+const path = require('path');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const shortid = require('shortid');
 
 const {validate} = require('./utils/validators/job');
 const constants = require('./utils/constants');
+const deafultDBFilePath = path.join(__dirname, "DB.json");
 
-class DBManager{
-    constructor(dbFilePath){
+class DBManager {
+    constructor(dbFilePath = deafultDBFilePath){
         if(!dbFilePath){
             throw new Error('db file path is not supply.');
         }
@@ -19,23 +21,26 @@ class DBManager{
 
     addJob = (job) => {
         validate(job);
+        console.log(`Start insert job to db startUrl: ${job.startUrl}, maxDepth: ${job.maxDepth}, maxTotalPages: ${job.maxTotalPages}`);
         // Check if job exist in db
         const existsJobs = this.db.get(constants.jobsTable)
             .find({ startUrl: job.startUrl, maxDepth: job.maxDepth, maxTotalPages: job.maxTotalPages })
             .value();
-        let resultJob;
+        let createdJob;
         if(existsJobs){
-            resultJob = {...existsJobs}; // not return the reference
+            console.log(`Job alresdy exixst at DB.`);
+            createdJob = {...existsJobs}; // not return the reference
         } else {
             const id = shortid.generate();
             this.db
             .get(constants.jobsTable)
-            .push({ id, ...job, "status": constants.jobStatus.NEW })
+            .push({ id, ...job, status: constants.jobStatus.NEW, scanedPagesNumber: 0, currentDepth: null, CreationTime: new Date(), WorkStartTime: null, WorkCompletionTime: null,percentageDephCompletion: null,percentagePageCompletion: null, Result: null})
             .write()
             job.id = id;
-            resultJob = {...job};
+            createdJob = {...job};
         }
-        return resultJob;
+        console.log(`Finish insert job`);
+        return createdJob;
     }
 
     getJobs = (jobsIdList) => {
@@ -43,7 +48,7 @@ class DBManager{
         return jobs.filter(job => jobsIdList.includes(job.id));
     }
 
-    updateJob = (job) => {
+    updateProcessJob = (job) => {
         if(!job.id) {
             throw new Error('job id must be exist'); 
         }
@@ -57,9 +62,12 @@ class DBManager{
         const newJobs = this.db.get(constants.jobsTable)
             .find({ "status": constants.jobStatus.NEW }).value();
 
-        newJobs.status = constants.jobStatus.PENDING;
-        this.updateJob(newJobs);
-        return {...newJobs};
+        if(newJobs){
+            newJobs.status = constants.jobStatus.PENDING;
+            this.updateProcessJob(newJobs);
+            return {...newJobs};
+        }
+        else return null
     }
 }
 
