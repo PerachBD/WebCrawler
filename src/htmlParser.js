@@ -24,6 +24,7 @@ const getContainedLinks = (baseUrl, htmlContent) => {
     // return an object that contains the title and links we extracted
     return Contained_links
 }
+// Extracts the title from the html content
 const getTitle = (htmlContent) => {
     const root = HTMLParser.parse(htmlContent);
     const title = (root.querySelector('title'))?root.querySelector('title').text:null;

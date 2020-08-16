@@ -18,6 +18,7 @@ class DBManager {
         this.collection = db.defaults({ jobs: [] }).write()    
     }
 
+    // add new job to db, if exist return it
     addJob = (job) => {
         validate(job);
         console.log(`Start insert job to db startUrl: ${job.startUrl}, maxDepth: ${job.maxDepth}, maxTotalPages: ${job.maxTotalPages}`);
@@ -42,11 +43,13 @@ class DBManager {
         return createdJob;
     }
 
+    // get list of jobs by ids
     getJobs = (jobsIdList) => {
         const jobs = this.db.get(constants.jobsTable).value();
         return jobs.filter(job => jobsIdList.includes(job.id));
     }
 
+    // update a job to the db
     updateProcessJob = (job) => {
         if(!job.id) {
             throw new Error('job id must be exist'); 
@@ -57,6 +60,7 @@ class DBManager {
             .write();
     }
 
+    // get a job with status new
     getNewJob = () => {
         const newJobs = this.db.get(constants.jobsTable)
             .find({ "status": constants.jobStatus.NEW }).value();

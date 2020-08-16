@@ -1,3 +1,4 @@
+// represent a node in the result tree
 module.exports = class SubJob {
     constructor(url, depth){
         this.url = url;

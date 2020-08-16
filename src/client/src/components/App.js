@@ -19,7 +19,7 @@ const App = () => {
   
   if(!conected){
     console.log('socket listen');
-    socket.on("FromAPI", event => {
+    socket.on("FromServer", event => {
       console.log('Get event from Server');
       console.log(event);
       switch (event.command) {

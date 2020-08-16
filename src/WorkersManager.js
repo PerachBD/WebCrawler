@@ -11,12 +11,15 @@ exports.WorkersManager = class {
         }
 
     }
+    // get list of jobs by ids from db
     getJobs = (jobsIdList) => {
         return this.dbManager.getJobs(jobsIdList);
     }
+    // get a job with status new from db
     getNewJobFunc = () => {
         return this.dbManager.getNewJob();
     }
+    // update a job to the db and to UI
     updateJobProcessFunc = (job) => {
         console.log(`submit page: ${job.scanedPagesNumber}`);
         this.dbManager.updateProcessJob(job);
@@ -24,12 +27,12 @@ exports.WorkersManager = class {
             command: "JobUpdate",
             args: job
         }
-        this.socket.emit("FromAPI", event);
+        this.socket.emit("FromServer", event);
     }
-
+    // add new job to db, and to UI
     addJob = (job, socket) => {
         this.socket = socket;
-        socket.emit("FromAPI", 'job added');
+        socket.emit("FromServer", 'job added');
         this.dbManager.addJob(job);
     }    
 }
