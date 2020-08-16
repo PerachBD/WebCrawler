@@ -45,9 +45,10 @@
 3. Add option to delete, pause and continue scrape job
 
 ## Snapshots: ##
+![image](Documentation/snapshots/newJob.PNG)
 ![image](Documentation/snapshots/controlPanel.PNG)
 ![image](Documentation/snapshots/JobresultView.PNG)
-![image](Documentation/snapshots/newJob.PNG)
+
 
 
 
