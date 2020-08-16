@@ -1,6 +1,6 @@
 # WebCrawler
 ## What does WebCrawler do?
- Scrape the web according to:
+#### Scrape the web according to:
   
  * The url to start scraping from.
  * The maximum depth to crawl down to from the start url.
@@ -8,7 +8,7 @@
    
    (Stop crawling a job when it reaches maxDepth or maxPages, whichever comes first.)
 
-Every scraped page has: 
+#### Every scraped page has: 
 
  1. title - The document.title of the page. 
  2. depth - Current depth being scraped. 
@@ -17,7 +17,7 @@ Every scraped page has:
   
 ## Architecture:
 ![diagram](Documentation/WebCrawlerDiagram.png)
-### create new job flow
+#### New scrape job flow
 ![diagram](Documentation/newJobFlow.png)
 
 ## Quick Start:
