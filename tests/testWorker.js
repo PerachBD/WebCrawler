@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const assert = require('chai').assert;
-const {worker, scan} = require('../src/worker');
+const { worker, scan } = require('../src/worker');
 const constants = require('../src/utils/constants');
-const {DBManager} = require('../src/DBManager')
+const { DBManager } = require('../src/DBManager')
 
-describe('Test the worker logic', function(){
+describe('Test the worker logic', function () {
     const sec = 1000;
     const min = 60 * sec;
     this.timeout(3 * min);
@@ -24,17 +24,16 @@ describe('Test the worker logic', function(){
 
         function updateJobFunc(root) {
             count++;
-            // console.log(msg);
         }
         const getNewJobFunc = () => {
-            if(newJob.status == constants.jobStatus.NEW){
+            if (newJob.status == constants.jobStatus.NEW) {
                 newJob.status = constants.jobStatus.PENDING
                 return newJob;
             }
             else return null
         }
         const query_results = await scan(getNewJobFunc, updateJobFunc);
-        assert(count, newJob.maxTotalPages) 
+        assert(count, newJob.maxTotalPages)
     })
 
     it('Should success to execute scan and reach to maximum depth', async () => {
@@ -52,14 +51,14 @@ describe('Test the worker logic', function(){
             count++;
         }
         const getNewJobFunc = () => {
-            if(newJob.status == constants.jobStatus.NEW){
+            if (newJob.status == constants.jobStatus.NEW) {
                 return newJob;
             }
             else return null
         }
         const query_results = await scan(getNewJobFunc, updateJobFunc);
         let accepted = newJob.result.childs.length + 1;
-        assert(count, accepted) 
+        assert(count, accepted)
     })
 
 })

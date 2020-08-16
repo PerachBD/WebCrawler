@@ -10,8 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 
-const customColumnStyle = { maxWidth: "150px", maxhight:"3%", size: "3px"};
-const customHeaderStyle = { maxWidth: "15%", maxhight:"3%", size: "5px", background: "darkgray "};
+const customColumnStyle = { maxWidth: "150px", maxhight: "3%", size: "3px" };
+const customHeaderStyle = { maxWidth: "15%", maxhight: "3%", size: "5px", background: "darkgray " };
 const useStyles = makeStyles({
   table: {
     minWidth: 300,
@@ -21,44 +21,44 @@ const useStyles = makeStyles({
 
 export default function SimpleTable(props) {
   const classes = useStyles();
-  
+
 
   const rows = props.rows;
-  if(rows.length < 1){
-      return 'NO JOBS YET';
+  if (rows.length < 1) {
+    return 'NO JOBS YET';
   }
-  const proprties = ['startUrl','percentagePageCompletion', 'percentageDephCompletion','CreationTime', 'WorkStartTime', 'WorkCompletionTime', 'status']
+  const proprties = ['startUrl', 'percentagePageCompletion', 'percentageDephCompletion', 'CreationTime', 'WorkStartTime', 'WorkCompletionTime', 'status']
   //Object.keys(rows[0]);
 
-  
+
 
   const headers = [];
-  for(let prop of proprties){
+  for (let prop of proprties) {
     headers.push(<TableCell style={customHeaderStyle}>{prop}</TableCell>)
   }
 
   const rowsTable = [];
 
-  for(let row of rows){
-      const columns = []
-      for(let prop of proprties){
-        if(prop === 'percentagePageCompletion'){
-          columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.scanedPagesNumber | 0}/${row.maxTotalPages} pages`}</Typography></TableCell>);
-        }
-        else if(prop === 'percentageDephCompletion'){
-          columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.currentDepth | 0}/${row.maxDepth} Depth`}</Typography></TableCell>);
-        }
-        else {
-          const showenurl = row[prop]?row[prop].slice(0,28):''
-          columns.push(<TableCell align="left" style={customColumnStyle}>{showenurl}</TableCell>);
-        }
-        
+  for (let row of rows) {
+    const columns = []
+    for (let prop of proprties) {
+      if (prop === 'percentagePageCompletion') {
+        columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.scanedPagesNumber | 0}/${row.maxTotalPages} pages`}</Typography></TableCell>);
       }
-        rowsTable.push(
-          <TableRow key={row.id} onClick={ () => props.onJobSelect(row.id)} style={{cursor: 'pointer'}}>               
-            {columns}
-          </TableRow>
-        )
+      else if (prop === 'percentageDephCompletion') {
+        columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.currentDepth | 0}/${row.maxDepth} Depth`}</Typography></TableCell>);
+      }
+      else {
+        const showenurl = row[prop] ? row[prop].slice(0, 28) : ''
+        columns.push(<TableCell align="left" style={customColumnStyle}>{showenurl}</TableCell>);
+      }
+
+    }
+    rowsTable.push(
+      <TableRow key={row.id} onClick={() => props.onJobSelect(row.id)} style={{ cursor: 'pointer' }}>
+        {columns}
+      </TableRow>
+    )
   }
 
   return (
@@ -66,7 +66,7 @@ export default function SimpleTable(props) {
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-              {headers}
+            {headers}
           </TableRow>
         </TableHead>
         <TableBody>

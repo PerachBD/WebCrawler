@@ -1,4 +1,4 @@
-module.exports ={
+module.exports = {
     jobsTable: 'jobs',
     jobStatus: {
         NEW: 'NEW',

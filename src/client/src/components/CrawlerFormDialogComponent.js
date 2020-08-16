@@ -16,7 +16,6 @@ export const CrawlerFormDialog = (props) => {
   };
 
   const onFormSubmit = (event) => {
-    // console.log(event);
     setOpen(false);
     props.onRequest(event);
   }
@@ -24,11 +23,11 @@ export const CrawlerFormDialog = (props) => {
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-       New scrape job
+        New scrape job
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <CrawlerFormComponent onRequest={onFormSubmit} />
-        
+
       </Dialog>
     </div>
   );

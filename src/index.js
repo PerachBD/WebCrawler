@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const socketIo = require("socket.io");
 const cors = require('cors');
-const {WorkersManager} = require('./WorkersManager');
+const { WorkersManager } = require('./WorkersManager');
 const index = require("./routes/crawlerRoutes")//handle the query that comes from the client
 const port = 8080;
 const app = express()
@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
         clearInterval(interval);
     }
     socket.on("FromClient", async (event) => {
-        if(!event.command){
+        if (!event.command) {
             throw new Error('not command in the request')
         }
         console.log('Server got command: ', event.command);
@@ -35,8 +35,8 @@ io.on("connection", (socket) => {
 
             case 'getJobs':
                 console.log(event.args);
-                const jobs = workersManager.getJobs(event.args,socket);
-                for(let job of jobs){
+                const jobs = workersManager.getJobs(event.args, socket);
+                for (let job of jobs) {
                     const event = {
                         command: "JobUpdate",
                         args: job
@@ -44,7 +44,7 @@ io.on("connection", (socket) => {
                     socket.emit("FromServer", event);
                 }
                 break;
-        
+
             default:
                 break;
         }
@@ -55,5 +55,5 @@ io.on("connection", (socket) => {
         clearInterval(interval);
     });
 });
-    
+
 server.listen(port, () => console.log(`Listening on port ${port}`));

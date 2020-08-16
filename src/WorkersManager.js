@@ -1,12 +1,12 @@
-const {DBManager} = require('./DBManager');
+const { DBManager } = require('./DBManager');
 var fs = require('fs');
 const { worker } = require('./worker');
 
 exports.WorkersManager = class {
-    constructor(numberOfWorkers){
+    constructor(numberOfWorkers) {
         this.dbManager = new DBManager();
         this.workers = []
-        for(let i =0; i<numberOfWorkers; i++){
+        for (let i = 0; i < numberOfWorkers; i++) {
             this.workers.push(worker(this.getNewJobFunc, this.updateJobProcessFunc))
         }
 
@@ -34,5 +34,5 @@ exports.WorkersManager = class {
         this.socket = socket;
         socket.emit("FromServer", 'job added');
         this.dbManager.addJob(job);
-    }    
+    }
 }
