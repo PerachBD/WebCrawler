@@ -2,7 +2,6 @@ const path = require('path');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const shortid = require('shortid');
-
 const {validate} = require('./utils/validators/job');
 const constants = require('./utils/constants');
 const deafultDBFilePath = path.join(__dirname, "DB.json");

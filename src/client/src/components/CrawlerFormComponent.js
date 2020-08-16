@@ -2,8 +2,6 @@ import { FormGroup, Form } from 'react-bootstrap'
 import React from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// import io from "socket.io-client";
-// const ENDPOINT = "http://localhost:8080/";
 
 
 class CrawlerFormComponent extends React.Component {

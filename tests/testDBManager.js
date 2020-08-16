@@ -53,17 +53,19 @@ describe('Test DBManger', () => {
     });
 
     it('Should success to update job properties', () => {
-        fixtureJob.status = constants.jobStatus.SUCCESS;
-        const startUrl = 'http://mockUrlPath.com'
-        fixtureJob.subJob = {
-            startUrl,
-            title: 'mock title',
-            depth: 0,
-            children: []        
+        fixtureJob = {
+            startUrl: 'https://www.mako.co.il',
+            maxDepth: 2,
+            maxTotalPages: 10
         }
-        dbManager.updateJob(fixtureJob);
-        const jobs = dbManager.getJobs([fixtureJob.id])
+        startUrl= 'http://mockUrlPath.com';
+        createdfixtureJob = dbManager.addJob(fixtureJob);
+        createdfixtureJob.status = constants.jobStatus.SUCCESS;
+        createdfixtureJob.startUrl = startUrl;
+        
+        dbManager.updateProcessJob(createdfixtureJob);
+        const jobs = dbManager.getJobs([createdfixtureJob.id])
         assert.equal(jobs[0].status, constants.jobStatus.SUCCESS);
-        assert.equal(jobs[0].subJob.startUrl, startUrl);
+        assert.equal(jobs[0].startUrl, startUrl);
     })
 })

@@ -8,10 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function JobSelectedDialog(props) {
 
-    let { open, handleClose, selectedValue, childSelected} = props;
+    let { open, handleBack, handleClose, selectedValue, childSelected} = props;
 
     if(!selectedValue){
-        return <div>not selected value</div>;
+        return <div></div>;
     }
     
     let job = selectedValue;
@@ -23,11 +23,6 @@ export default function JobSelectedDialog(props) {
 
     console.log("selectedValue",job)
 
-    // const enterChild = (child) =>{
-    //     console.log(child)
-    //     return (<JobSelectedDialog open={true} selectedValue={child} handleClose={handleClose}></JobSelectedDialog>);
-    // }
-
     const childsButtons = []
     for(let child of childs){
         childsButtons.push(<button onClick={()=>childSelected(child)}>{child["url"]}</button>)
@@ -37,6 +32,7 @@ export default function JobSelectedDialog(props) {
         <div>
             <Dialog
                 open = {open}
+                // onBack = {handleBack}
                 onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -53,7 +49,10 @@ export default function JobSelectedDialog(props) {
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary" autoFocus>
+                    <Button onClick={()=>handleBack()} color="primary" autoFocus>
+                        Back
+                    </Button>
+                    <Button onClick={()=>handleClose()} color="primary" autoFocus>
                         close
                     </Button>
                 </DialogActions>

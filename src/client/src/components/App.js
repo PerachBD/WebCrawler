@@ -7,13 +7,14 @@ import JobSelectedDialog from "./JobSelectedComponent"
 const ENDPOINT = "http://localhost:8080/";
 
 const socket = socketIOClient(ENDPOINT);
+let flow =[]
 
 let conected = false;
-let isJobSelected;
-let selectedJob;
 
 const App = () => {
   const [jobs, setJobs] = useState({}); 
+  const [isJobSelected, setIsJobSelected] = useState(false);
+  const [selectedJob, setSlectedJob] = useState(null);
   const localstoragejobs = localStorage.getItem('jobs')? JSON.parse(localStorage.getItem('jobs')): [];
   
   if(!conected){
@@ -52,29 +53,37 @@ const App = () => {
     socket.emit('FromClient', event);
   }
 
-  isJobSelected = true
-  selectedJob = jobs['sjvRtnC7X']?JSON.parse(jobs['sjvRtnC7X'])['result']:null;
-  let flow = []
+  // isJobSelected = true
+  // selectedJob = jobs['sjvRtnC7X']?JSON.parse(jobs['sjvRtnC7X'])['result']:null;
+  
   const onJobSelect = (jobId) => {
-    isJobSelected= true;
-    selectedJob=jobs[jobId]?JSON.parse(jobs[jobId])['result']:null;
-    flow.push(selectedJob)
-    console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
+    setIsJobSelected(true);
+    let getJob = jobs[jobId]?JSON.parse(jobs[jobId])['result']:null
+    setSlectedJob(getJob);
+    flow.push(getJob)
+    // console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
     console.log('flow ' + flow);
   }
   const childSelected = (child) => {
-    isJobSelected= true;
-    selectedJob=child;
-    flow.push(selectedJob);
-    console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
-    console.log('flow ' + flow);
+    if(child){
+      setIsJobSelected(true);
+      setSlectedJob(child);
+      flow.push(child);
+      // console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
+      console.log('flow ' + flow);
+    }
   }
-  const JobSelectedClose = () => {
-    isJobSelected= false;
+  const JobSelectedBack = () => {
     flow.pop();
     if(flow.length)childSelected(flow.pop());
-    else console.log('isJobSelected: ' + isJobSelected);
+    else setIsJobSelected(false);
+    // else console.log('isJobSelected: ' + isJobSelected);
     // console.log('flow ' + flow);
+  }
+
+  const JobSelectedclose = () => {
+    flow=[]
+    setIsJobSelected(false);
   }
 
   const jobsTable = [];
@@ -101,7 +110,7 @@ const App = () => {
       <CrawlerFormDialog onRequest={sendToServer}/>
       <h2 style={{color: "Navy"}}>Actual Jobs:</h2>
       <SimpleTable rows={jobs ? jobsList : []} onJobSelect={onJobSelect}/>
-      <JobSelectedDialog open={isJobSelected} selectedValue={selectedJob} childSelected={childSelected} handleClose={JobSelectedClose} /> 
+      <JobSelectedDialog open={isJobSelected} handleClose={JobSelectedclose} handleBack={JobSelectedBack} selectedValue={selectedJob} childSelected={childSelected} /> 
       
     </div> 
   );
