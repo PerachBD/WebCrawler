@@ -11,6 +11,8 @@ whichever comes first.)
   
 ## Architecture:
 ![diagram](Documentation/WebCrawlerDiagram.png)
+### create new job flow
+![diagram](Documentation/newJobFlow.png)
 
 ## Quick Start:
 
