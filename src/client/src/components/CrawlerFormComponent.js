@@ -93,7 +93,6 @@ class CrawlerFormComponent extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state)
     this.props.onRequest({
         command: "NewScanJob",
         args : {

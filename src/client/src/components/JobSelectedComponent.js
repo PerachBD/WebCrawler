@@ -21,7 +21,6 @@ export default function JobSelectedDialog(props) {
     let childs = job["childs"]
     let childNum = childs.length ;
 
-    console.log("selectedValue",job)
 
     const childsButtons = []
     for(let child of childs){

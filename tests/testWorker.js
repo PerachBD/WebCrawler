@@ -24,7 +24,6 @@ describe('Test the worker logic', function(){
 
         function updateJobFunc(root) {
             count++;
-            // console.log(msg);
         }
         const getNewJobFunc = () => {
             if(newJob.status == constants.jobStatus.NEW){

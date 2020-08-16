@@ -20,8 +20,7 @@ const App = () => {
   if(!conected){
     console.log('socket listen');
     socket.on("FromServer", event => {
-      console.log('Get event from Server');
-      console.log(event);
+      console.log('Get event from Server', event);
       switch (event.command) {
         case "JobUpdate":
           const job = event.args;
@@ -48,37 +47,26 @@ const App = () => {
   }
 
   const sendToServer = (event) => {
-    console.log(`event:`, event);
-    console.log('try send to server');
     socket.emit('FromClient', event);
   }
 
-  // isJobSelected = true
-  // selectedJob = jobs['sjvRtnC7X']?JSON.parse(jobs['sjvRtnC7X'])['result']:null;
-  
   const onJobSelect = (jobId) => {
     setIsJobSelected(true);
     let getJob = jobs[jobId]?JSON.parse(jobs[jobId])['result']:null
     setSlectedJob(getJob);
     flow.push(getJob)
-    // console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
-    console.log('flow ' + flow);
   }
   const childSelected = (child) => {
     if(child){
       setIsJobSelected(true);
       setSlectedJob(child);
       flow.push(child);
-      // console.log('isJobSelected:' + isJobSelected, selectedJob["url"]);
-      console.log('flow ' + flow);
     }
   }
   const JobSelectedBack = () => {
     flow.pop();
     if(flow.length)childSelected(flow.pop());
     else setIsJobSelected(false);
-    // else console.log('isJobSelected: ' + isJobSelected);
-    // console.log('flow ' + flow);
   }
 
   const JobSelectedclose = () => {
@@ -89,9 +77,7 @@ const App = () => {
   const jobsTable = [];
   if (jobs) {
     for (let key of Object.keys(jobs)) {
-      // console.log("jobs[key]",jobs[key])
       const j = JSON.parse(jobs[key]);
-      // console.log('key ', j);
       jobsTable.push(<div key={j.id}>{j.id} | {j.startUrl} | {j.maxDepth} | {j.maxTotalPages} | {j.scanedPagesNumber} | {j.currentDepth} | {j.status} | {j.CreationTime} </div>)
     }
   }
@@ -103,7 +89,6 @@ const App = () => {
       result: null
     }
   });
-  console.log('jobsList:',jobsList);
 
   return (
     <div>

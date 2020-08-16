@@ -16,7 +16,6 @@ export const CrawlerFormDialog = (props) => {
   };
 
   const onFormSubmit = (event) => {
-    // console.log(event);
     setOpen(false);
     props.onRequest(event);
   }

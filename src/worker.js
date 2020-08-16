@@ -8,7 +8,6 @@ function sleep(ms) {
 
 const scan = async (getNewJobFunc, updateJobFunc) => {
     // get job with status new to be execute
-    console.log("entered")
     const newjob = await getNewJobFunc();
     if(newjob) {
         console.log('working on new job');
