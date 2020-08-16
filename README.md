@@ -44,5 +44,11 @@
 2. Calculating the number of "workers", dynamically depending on the loads and the number of scrape jobs to be performed.
 3. Add option to delete, pause and continue scrape job
 
+## Snapshots: ##
+![image](Documentation/snapshots/controlPanel.png)
+![image](Documentation/snapshots/JobresultView.png)
+![image](Documentation/snapshots/newJob.png)
+
+
 
 
