@@ -49,7 +49,7 @@ export default function SimpleTable(props) {
           columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.currentDepth | 0}/${row.maxDepth} Depth`}</Typography></TableCell>);
         }
         else {
-          const showenurl = row[prop]?row[prop].slice(0,30):''
+          const showenurl = row[prop]?row[prop].slice(0,28):''
           columns.push(<TableCell align="left" style={customColumnStyle}>{showenurl}</TableCell>);
         }
         

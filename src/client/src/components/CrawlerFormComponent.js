@@ -17,32 +17,35 @@ class CrawlerFormComponent extends React.Component {
     this.setURL = this.setURL.bind(this)
     this.setmaxDepth = this.setmaxDepth.bind(this)
     this.setmaxPages = this.setmaxPages.bind(this)
-    // this.socket = io(ENDPOINT)
     this.handleSubmit = this.handleSubmit.bind(this)
 
   }
   render() {
     const windowStyle = {minWidth:"350px"};
-    const fildStyle = {minWidth:"200px"};
+    const fieldStyle = {minWidth:"250px"};
     return (
         <Form inline style={windowStyle} onSubmit={this.handleSubmit}>
-          <FormGroup align="center" style={fildStyle}>
+          <FormGroup align="center" >
             <div >
               <h1 style={{color: "navy"}}>Create New Job:</h1>
-              <TextField 
+              <TextField align="center" style={fieldStyle}
                 id="url"
-                type="text"
+                type="url"
+                pattern="https?://.+" 
+                required 
                 label="url"
-                placeholder="URL"
+                // helperText="Enter a valid url address"
                 onChange={this.setURL}
                 autoComplete="off"
               />
             </div>
 
             <div>
-              <TextField
+              <TextField align="center" style={fieldStyle}
                 id="maxDepth"
                 type="number"
+                InputProps={{ inputProps: { min: 0} }}
+                required
                 label="maxDepth"
                 placeholder="Max Depth"
                 onChange={this.setmaxDepth}
@@ -51,9 +54,11 @@ class CrawlerFormComponent extends React.Component {
             </div>
 
             <div>
-              <TextField
+              <TextField align="center" style={fieldStyle}
                 id="maxPages"
                 type="number"
+                InputProps={{ inputProps: { min: 0 } }} 
+                required
                 label="maxPages"
                 placeholder="Max Pages"
                 onChange={this.setmaxPages}
@@ -66,6 +71,7 @@ class CrawlerFormComponent extends React.Component {
         </Form>
     )
   }
+  
   setURL(event) {
     this.setState({
       url: event.target.value
