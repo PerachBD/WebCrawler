@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 
-const customColumnStyle = { maxWidth: "15%", maxhight:"3%", size: "5px"};
+const customColumnStyle = { maxWidth: "150px", maxhight:"3%", size: "3px"};
 const customHeaderStyle = { maxWidth: "15%", maxhight:"3%", size: "5px", background: "darkgray "};
 const useStyles = makeStyles({
   table: {
@@ -27,7 +27,10 @@ export default function SimpleTable(props) {
   if(rows.length < 1){
       return 'NO JOBS YET';
   }
-  const proprties = Object.keys(rows[0]);
+  const proprties = ['startUrl','percentagePageCompletion', 'percentageDephCompletion','CreationTime', 'WorkStartTime', 'WorkCompletionTime', 'status']
+  //Object.keys(rows[0]);
+
+  
 
   const headers = [];
   for(let prop of proprties){
@@ -40,14 +43,15 @@ export default function SimpleTable(props) {
       const columns = []
       for(let prop of proprties){
         if(prop === 'percentagePageCompletion'){
-          console.log(`ProgressBar: ${row[prop]}`)
           columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.scanedPagesNumber | 0}/${row.maxTotalPages} pages`}</Typography></TableCell>);
         }
-        if(prop === 'percentageDephCompletion'){
-          console.log(`ProgressBar: ${row[prop]}`)
+        else if(prop === 'percentageDephCompletion'){
           columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.currentDepth | 0}/${row.maxDepth} Depth`}</Typography></TableCell>);
         }
-        else columns.push(<TableCell align="left" style={customColumnStyle}>{row[prop]}</TableCell>);
+        else {
+          const showenurl = row[prop]?row[prop].slice(0,30):''
+          columns.push(<TableCell align="left" style={customColumnStyle}>{showenurl}</TableCell>);
+        }
         
       }
         rowsTable.push(

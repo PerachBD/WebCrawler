@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Form } from 'react-bootstrap'
+import { FormGroup, Form } from 'react-bootstrap'
 import React from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -98,11 +98,6 @@ class CrawlerFormComponent extends React.Component {
           maxTotalPages: this.state.maxPages
         }
     })
-    // this.socket.emit("sbmitCrawlerParameters", {
-    //   url:this.state.url,
-    //   maxDepth:this.state.maxDepth,
-    //   maxPages:this.state.maxPages
-    // })
   }
 }
 export default CrawlerFormComponent

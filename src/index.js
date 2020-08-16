@@ -3,8 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const socketIo = require("socket.io");
 const cors = require('cors');
-
-const {handlequery} = require("./handlequery");
 const {WorkersManager} = require('./WorkersManager');
 const index = require("./routes/crawlerRoutes")//handle the query that comes from the client
 

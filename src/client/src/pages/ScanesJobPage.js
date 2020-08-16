@@ -7,7 +7,7 @@ export class ScanesJobPage extends React.Component {
         return (
             <div>
                 <CrawlerFormDialog onRequest={this.props.onRequest}/>
-                <h2 style={{color: "Navy"}}>Actual Jobs:</h2>
+                
                 {/* <ActualJobs /> */}
             </div>
         );
