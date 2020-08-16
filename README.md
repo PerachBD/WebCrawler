@@ -12,7 +12,7 @@
 whichever comes first.)
   
 ## Architecture:
-![diagram](WebCrawlerDiagram.png)
+![diagram](Documentation\WebCrawlerDiagram.png)
 
 ## Quick Start:
 
