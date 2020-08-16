@@ -8,6 +8,12 @@
   
  (Stop crawling a job when it reaches maxDepth or maxPages,
 whichever comes first.)
+
+Every scraped page has:
+1. title - The document.title of the page
+2. depth - Current depth being scraped
+3. url - The URL that was scraped
+4. links - All hrefs in the anchor tags in the page
   
 ## Architecture:
 ![diagram](Documentation/WebCrawlerDiagram.png)
