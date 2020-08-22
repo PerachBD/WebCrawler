@@ -16,14 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const server = http.createServer(app);
 const io = socketIo(server);
 
-let interval;
 
 io.on("connection", (socket) => {
     console.log("New client connected");
     const workersManager = new WorkersManager(2,socket);
-    if (interval) {
-        clearInterval(interval);
-    }
     socket.on("FromClient", async (event) => {
         if (!event.command) {
             throw new Error('not command in the request')
@@ -61,7 +57,6 @@ io.on("connection", (socket) => {
     });
     socket.on("disconnect", () => {
         console.log("Client disconnected");
-        clearInterval(interval);
     });
 });
 
