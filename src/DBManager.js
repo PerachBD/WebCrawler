@@ -34,7 +34,7 @@ class DBManager {
             const id = shortid.generate();
             this.db
                 .get(constants.jobsTable)
-                .push({ id, ...job, status: constants.jobStatus.NEW, scanedPagesNumber: 0, currentDepth: null, CreationTime: new Date(), WorkStartTime: null, WorkCompletionTime: null, percentageDephCompletion: null, percentagePageCompletion: null, Result: null })
+                .push({ id, ...job, status: constants.jobStatus.NEW, scanedPagesNumber: 0, currentDepth: null,pausedJobState:[], CreationTime: new Date(), WorkStartTime: null, WorkCompletionTime: null, percentageDephCompletion: null, percentagePageCompletion: null, Result: null })
                 .write()
             job.id = id;
             createdJob = { ...job };
@@ -62,8 +62,10 @@ class DBManager {
 
     // get a job with status new
     getNewJob = () => {
-        const newJobs = this.db.get(constants.jobsTable)
+        let newJobs = this.db.get(constants.jobsTable)
             .find({ "status": constants.jobStatus.NEW }).value();
+
+        if(!newJobs) newJobs = this.db.get(constants.jobsTable).find({"status": constants.jobStatus.RESUMED}).value();
 
         if (newJobs) {
             newJobs.status = constants.jobStatus.PENDING;

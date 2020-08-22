@@ -4,10 +4,10 @@ const bodyParser = require('body-parser');
 const socketIo = require("socket.io");
 const cors = require('cors');
 const { WorkersManager } = require('./WorkersManager');
-const index = require("./routes/crawlerRoutes")//handle the query that comes from the client
+const constants = require('./utils/constants')
+
 const port = 8080;
 const app = express()
-app.use(index);
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,11 +15,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = http.createServer(app);
 const io = socketIo(server);
-const workersManager = new WorkersManager(2);
+
 let interval;
 
 io.on("connection", (socket) => {
     console.log("New client connected");
+    const workersManager = new WorkersManager(2,socket);
     if (interval) {
         clearInterval(interval);
     }
@@ -30,12 +31,12 @@ io.on("connection", (socket) => {
         console.log('Server got command: ', event.command);
         switch (event.command) {
             case 'NewScanJob':
-                workersManager.addJob(event.args, socket);
+                workersManager.addJob(event.args);
                 break;
 
             case 'getJobs':
                 console.log(event.args);
-                const jobs = workersManager.getJobs(event.args, socket);
+                const jobs = workersManager.getJobs(event.args);
                 for (let job of jobs) {
                     const event = {
                         command: "JobUpdate",
@@ -44,7 +45,15 @@ io.on("connection", (socket) => {
                     socket.emit("FromServer", event);
                 }
                 break;
-
+            case 'pauseJob':
+                workersManager.pausedJobs.push(event.args);
+                break;
+            case 'resumeJob':
+                workersManager.pausedJobs.splice(workersManager.pausedJobs.indexOf(event.args),1);
+                resumedJob = workersManager.getJobs([event.args])[0];
+                resumedJob.status = constants.jobStatus.RESUMED;
+                workersManager.updateJobProcessFunc(resumedJob);
+                break;
             default:
                 break;
         }

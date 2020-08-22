@@ -1,9 +1,11 @@
 // import React from "react";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import socketIOClient from "socket.io-client";
-import SimpleTable from "./actualJobsTableComponent"
-import { CrawlerFormDialog } from "../components/CrawlerFormDialogComponent"
-import JobSelectedDialog from "./JobSelectedComponent"
+import SimpleTable from "./actualJobsTableComponent";
+import { CrawlerFormDialog } from "../components/CrawlerFormDialogComponent";
+import JobSelectedDialog from "./JobSelectedComponent";
+import {JobsContext} from "../jobs-context"
+
 const ENDPOINT = "http://localhost:8080/";
 
 const socket = socketIOClient(ENDPOINT);
@@ -51,6 +53,7 @@ const App = () => {
   }
 
   const onJobSelect = (jobId) => {
+    console.log(`table clicked`)
     setIsJobSelected(true);
     let getJob = jobs[jobId] ? JSON.parse(jobs[jobId])['result'] : null
     setSlectedJob(getJob);
@@ -74,29 +77,22 @@ const App = () => {
     setIsJobSelected(false);
   }
 
-  const jobsTable = [];
-  if (jobs) {
-    for (let key of Object.keys(jobs)) {
-      const j = JSON.parse(jobs[key]);
-      jobsTable.push(<div key={j.id}>{j.id} | {j.startUrl} | {j.maxDepth} | {j.maxTotalPages} | {j.scanedPagesNumber} | {j.currentDepth} | {j.status} | {j.CreationTime} </div>)
-    }
-  }
-
-
-  const jobsList = Object.values(jobs).map(item => {
-    return {
-      ...JSON.parse(item),
-      result: null
-    }
-  });
+  // const jobsTable = [];
+  // if (jobs) {
+  //   for (let key of Object.keys(jobs)) {
+  //     const j = JSON.parse(jobs[key]);
+  //     jobsTable.push(<div key={j.id}>{j.id} | {j.startUrl} | {j.maxDepth} | {j.maxTotalPages} | {j.scanedPagesNumber} | {j.currentDepth} | {j.status} | {j.CreationTime} </div>)
+  //   }
+  // }
 
   return (
     <div>
+      <JobsContext.Provider value = {[jobs, setJobs]}>
       <CrawlerFormDialog onRequest={sendToServer} />
       <h2 style={{ color: "Navy" }}>Actual Jobs:</h2>
-      <SimpleTable rows={jobs ? jobsList : []} onJobSelect={onJobSelect} />
+      <SimpleTable onJobSelect={onJobSelect} sendToServer={sendToServer}/>
       <JobSelectedDialog open={isJobSelected} handleClose={JobSelectedclose} handleBack={JobSelectedBack} selectedValue={selectedJob} childSelected={childSelected} />
-
+      </JobsContext.Provider>
     </div>
   );
 }
