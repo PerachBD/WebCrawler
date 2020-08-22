@@ -25,9 +25,8 @@ const useStyles = makeStyles({
 
 
 export default function SimpleTable(props) {
-  // const [selectedJobs, setselectedJobs] = useContext(selectedJobsContext);
   const classes = useStyles();
-  const [jobs,setJobs] = useContext(JobsContext)
+  const [jobs] = useContext(JobsContext)
   const jobsList = jobs?Object.values(jobs).map(item => {
     return {
       ...JSON.parse(item),
@@ -39,8 +38,6 @@ export default function SimpleTable(props) {
   if (rows.length < 1) {
     return 'NO JOBS YET';
   }
-  const proprties = ['startUrl', 'percentagePageCompletion', 'percentageDephCompletion', 'CreationTime', 'WorkStartTime', 'WorkCompletionTime', 'status', 'actions']
-  //Object.keys(rows[0]);
 
   const pauseJobSelect = (e,jobId) => {
     e.preventDefault();
@@ -63,6 +60,7 @@ export default function SimpleTable(props) {
     props.sendToServer(event);
   }
 
+  const proprties = ['startUrl', 'percentagePageCompletion', 'percentageDephCompletion', 'CreationTime', 'WorkStartTime', 'WorkCompletionTime', 'status', 'action']
   const headers = [];
   for (let prop of proprties) {
     headers.push(<TableCell style={customHeaderStyle}>{prop}</TableCell>)
@@ -79,17 +77,19 @@ export default function SimpleTable(props) {
       else if (prop === 'percentageDephCompletion') {
         columns.push(<TableCell align="left" style={customColumnStyle}><LinearProgress variant="determinate" value={row[prop]} label={`{row[prop]}`} /> <Typography variant="body2" color="textSecondary">{`${row.currentDepth | 0}/${row.maxDepth} Depth`}</Typography></TableCell>);
       }
-      else if (prop === 'actions'){
-        if(row['status']=='PENDING')
+      else if (prop === 'action'){
+        if(row['status'] ==='PENDING')
           columns.push(<Button onClick={(event) => pauseJobSelect(event, row.id)} variant="contained" color="secondary" startIcon={<PauseIcon/>}></Button>);
-        if(row['status']=='PAUSED')
-          columns.push(<Button onClick={(event) => ResumeJobSelect(event, row.id)} variant="contained" color="secondary" startIcon={<PlayArrowIcon/>}></Button>);
+        if(row['status'] ==='PAUSED')
+          columns.push(<Button style = {{ width: '20px', height: '25px'}} onClick={(event) => ResumeJobSelect(event, row.id)} variant="contained" color="secondary" startIcon={<PlayArrowIcon/>}></Button>);
       }
-      else {
+      else if (prop === 'startUrl') {
         const showenurl = row[prop] ? row[prop].slice(0, 28) : ''
         columns.push(<TableCell  align="left" style={customColumnStyle}>{showenurl}</TableCell>);
       }
-
+      else {
+        columns.push(<TableCell  align="left" style={customColumnStyle}>{row[prop]}</TableCell>);
+      }
     }
     
     rowsTable.push(

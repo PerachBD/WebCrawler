@@ -12,7 +12,7 @@ const scan = async (getNewJobFunc, updateJobFunc, getPausedJobsFunc) => {
     if (newjob) {
         console.log('working on new job');
         // execute the job
-        const result = await handlequery(newjob, updateJobFunc, getPausedJobsFunc)
+        const result = await handlequery(newjob, updateJobFunc, getPausedJobsFunc);
         console.log('finish working on job');
         return result;
     }
