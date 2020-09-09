@@ -25,8 +25,7 @@
 ## Quick Start: ##
 
 1. run `git clone https://github.com/PerachBD/WebCrawler.git`
-2. run comman `npm install` at folder \WebCrawler and at folder \WebCrawler\src\client .
-2. run comman `npm start` at folder \WebCrawler and at folder \WebCrawler\src\client.
+2. run `npm i && npm start`
 
 ## Tecnolegis: ##
 * NodeJS
