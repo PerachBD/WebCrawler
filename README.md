@@ -20,7 +20,7 @@
 ## Architecture: ##
 ![diagram](Documentation/WebCrawlerDiagram.png)
 #### **New scrape job flow** ####
-![diagram](Documentation/newJobFlow.png)
+![diagram](https://user-images.githubusercontent.com/11539388/200133360-cdfda8cd-5dd9-4335-9d04-4c910a163b00.jpg)
 
 ## Quick Start: ##
 
